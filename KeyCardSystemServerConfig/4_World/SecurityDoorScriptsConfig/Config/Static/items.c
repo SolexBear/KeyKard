@@ -1,0 +1,20 @@
+modded class PluginKeyCardSystemServer
+{
+    override void StaticItemsSpawn()
+    {
+        super.StaticItemsSpawn();
+}
+
+    private void SpawnObject(string objType, vector objPos, vector objOrientation)
+    {
+        Object m_Building = Object.Cast(GetGame().CreateObject(objType, objPos));
+        if (m_Building == null) return;
+        m_Building.SetAffectPathgraph(true, false);
+        GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(GetGame().UpdatePathgraphRegionByObject, 100, false, m_Building);
+        m_Building.SetPosition(objPos);
+        m_Building.SetOrientation(objOrientation);
+    }
+
+
+}
+
